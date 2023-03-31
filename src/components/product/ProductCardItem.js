@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 const ProductCardItem = (props) => {
   const { id, productName, brand, image, price, hidden } = props;
-
+  const isLoggedIn = true;
+  const role = "user";
   const { t } = useTranslation();
 
   return (
@@ -29,9 +30,6 @@ const ProductCardItem = (props) => {
         {isLoggedIn && role === "user" && (
           <button
             className="btn btn-outline-primary flex-fill m-auto"
-            onClick={() => {
-              onClickAddToCart(id);
-            }}
           >
             {t("Add to Cart")}
           </button>
