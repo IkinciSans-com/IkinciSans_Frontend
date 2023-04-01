@@ -7,6 +7,7 @@ import MegaMenu from "../src/components/common/MegaMenu";
 import CategoryDetailPage from "../src/pages/CategoryDetailPage";
 import EditProductPage from "../src/pages/EditProductPage";
 import UserSignupPage from "../src/pages/UserSignupPage";
+import Chat from "./pages/MessagePage";
 
 const App = () => {
   const { isLoggedIn, role } = useSelector((store) => ({
@@ -29,6 +30,7 @@ const App = () => {
           {isLoggedIn && role === "admin" && (
             <Route exact path="/editProduct/:id" component={EditProductPage} />
           )}
+          <Route path="/messagepage" component={Chat} />
           <Redirect to="/error" />
         </Switch>
         <Footer />
