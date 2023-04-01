@@ -7,6 +7,7 @@ import MegaMenu from "../src/components/common/MegaMenu";
 import CategoryDetailPage from "../src/pages/CategoryDetailPage";
 import EditProductPage from "../src/pages/EditProductPage";
 import UserSignupPage from "../src/pages/UserSignupPage";
+import NotFoundPage from "../src/pages/NotFoundPage";
 
 const App = () => {
   const { isLoggedIn, role } = useSelector((store) => ({
@@ -22,6 +23,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" />
           {!isLoggedIn && <Route path="/signup" component={UserSignupPage} />}
+          {!isLoggedIn && <Route path="/notFound" component={NotFoundPage} />}
           <Route
             path="/all-products/:categoryId/:subId"
             component={CategoryDetailPage}
@@ -29,6 +31,7 @@ const App = () => {
           {isLoggedIn && role === "admin" && (
             <Route exact path="/editProduct/:id" component={EditProductPage} />
           )}
+          
           <Redirect to="/error" />
         </Switch>
         <Footer />
