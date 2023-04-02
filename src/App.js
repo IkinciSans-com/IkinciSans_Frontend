@@ -7,6 +7,9 @@ import MegaMenu from "../src/components/common/MegaMenu";
 import CategoryDetailPage from "../src/pages/CategoryDetailPage";
 import EditProductPage from "../src/pages/EditProductPage";
 import UserSignupPage from "../src/pages/UserSignupPage";
+import LoginPage from "../src/pages/LoginPage";
+import CategorySearchPage from "../src/pages/CategorySearchPage";
+import UserPage from "../src/pages/UserPage";
 
 const App = () => {
   const { isLoggedIn, role } = useSelector((store) => ({
@@ -21,13 +24,21 @@ const App = () => {
         <MegaMenu />
         <Switch>
           <Route exact path="/" />
+          {!isLoggedIn && <Route path="/login" component={LoginPage} />}
           {!isLoggedIn && <Route path="/signup" component={UserSignupPage} />}
           <Route
             path="/all-products/:categoryId/:subId"
             component={CategoryDetailPage}
           />
+          <Route
+            exact path="/all-products/:searchWord"
+            component={CategorySearchPage}
+          />
           {isLoggedIn && role === "admin" && (
             <Route exact path="/editProduct/:id" component={EditProductPage} />
+          )}
+          {isLoggedIn && role === "user" && (
+            <Route path="/myprofile" component={UserPage} />
           )}
           <Redirect to="/error" />
         </Switch>
