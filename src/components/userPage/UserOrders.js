@@ -56,7 +56,7 @@ const UserOrders = () => {
             <div className="container border mt-2 text-center">
               <img src={cartEmpty} className="mb-5 mt-5" />
               <h2 className="container text-danger">
-                {t("You've Never Ordered Before!")}
+                {t("You Have Never Traded Before!")}
               </h2>
             </div>
           )}
@@ -64,7 +64,7 @@ const UserOrders = () => {
             return (
               <div className="row border border-solid mt-2" key={item.id}>
                 <div className="col">
-                  <h6 className="mt-4">{t("Order Date")}</h6>
+                  <h6 className="mt-4">{t("Swap Date")}</h6>
                   {language === "tr" && (
                     <span className="mt-2">{item.timestampTr}</span>
                   )}
@@ -81,14 +81,14 @@ const UserOrders = () => {
                         {item.totalProduct}
                       </h6>
                       <h6 className="mt-3 text-primary">
-                        {t("Total Price")}
-                        <br />₺{item.totalPrice}
+                        {t("What can be exchanged for?")}
+                        <br />{item.totalPrice}
                       </h6>
                     </div>
                   </div>
                 </div>
                 <div className="col text-center">
-                  <h6 className="mt-4">{t("Order Status")}</h6>
+                  <h6 className="mt-4">{t("Swap Status")}</h6>
                   <span className="mt-2">{t(item.orderStatus)}</span>
                 </div>
                 <div className="col text-center">
