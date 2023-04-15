@@ -22,7 +22,7 @@ const ImageSlider = (props) => {
             <Carousel.Item key={image.name} className="text-primary bg-primary">
               <img
                 className="d-block w-100"
-                src={"images/attachments/" + image.name}
+                src={"images/" + image.name}
                 alt="First slide"
               />
               <Carousel.Caption className="text-primary">

@@ -11,6 +11,7 @@ import NotFoundPage from "../src/pages/NotFoundPage";
 import LoginPage from "../src/pages/LoginPage";
 import CategorySearchPage from "../src/pages/CategorySearchPage";
 import UserPage from "../src/pages/UserPage";
+import HomePage from "./pages/HomePage";
 
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
         <TopBar />
         <MegaMenu />
         <Switch>
-          <Route exact path="/" />
+          <Route exact path="/" component={HomePage}/>
           {!isLoggedIn && <Route path="/login" component={LoginPage} />}
           {!isLoggedIn && <Route path="/signup" component={UserSignupPage} />}
           {!isLoggedIn && <Route path="/notFound" component={NotFoundPage} />}
