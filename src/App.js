@@ -12,6 +12,7 @@ import LoginPage from "../src/pages/LoginPage";
 import CategorySearchPage from "../src/pages/CategorySearchPage";
 import UserPage from "../src/pages/UserPage";
 import HomePage from "./pages/HomePage";
+import EmailValidationPage from "./pages/EmailValidationPage";
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           {!isLoggedIn && <Route path="/login" component={LoginPage} />}
           {!isLoggedIn && <Route path="/signup" component={UserSignupPage} />}
           {!isLoggedIn && <Route path="/notFound" component={NotFoundPage} />}
+          <Route path="/email-validation" component={EmailValidationPage} />
           <Route
             path="/all-products/:categoryId/:subId"
             component={CategoryDetailPage}
@@ -44,7 +46,8 @@ const App = () => {
           {isLoggedIn && role === "user" && (
             <Route path="/myprofile" component={UserPage} />
           )}
-          <Redirect to="/error" />
+          
+           { <Redirect to="/error" />  }
         </Switch>
         <Footer />
       </Router>
