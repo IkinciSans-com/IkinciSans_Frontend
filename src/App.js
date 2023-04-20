@@ -12,6 +12,7 @@ import LoginPage from "../src/pages/LoginPage";
 import CategorySearchPage from "../src/pages/CategorySearchPage";
 import UserPage from "../src/pages/UserPage";
 import HomePage from "./pages/HomePage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           {!isLoggedIn && <Route path="/login" component={LoginPage} />}
           {!isLoggedIn && <Route path="/signup" component={UserSignupPage} />}
           {!isLoggedIn && <Route path="/notFound" component={NotFoundPage} />}
+          <Route path="/product-detail" component={ProductDetailPage} />
           <Route
             path="/all-products/:categoryId/:subId"
             component={CategoryDetailPage}
