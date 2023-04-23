@@ -13,7 +13,7 @@ import CategorySearchPage from "../src/pages/CategorySearchPage";
 import UserPage from "../src/pages/UserPage";
 import HomePage from "./pages/HomePage";
 import EmailValidationPage from "./pages/EmailValidationPage";
-
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 const App = () => {
   const { isLoggedIn, role } = useSelector((store) => ({
@@ -32,6 +32,7 @@ const App = () => {
           {!isLoggedIn && <Route path="/signup" component={UserSignupPage} />}
           {!isLoggedIn && <Route path="/notFound" component={NotFoundPage} />}
           <Route path="/email-validation" component={EmailValidationPage} />
+          <Route path="/product-detail" component={ProductDetailPage} />
           <Route
             path="/all-products/:categoryId/:subId"
             component={CategoryDetailPage}
