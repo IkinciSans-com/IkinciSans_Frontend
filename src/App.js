@@ -12,6 +12,9 @@ import NotFoundPage from "../src/pages/NotFoundPage";
 import LoginPage from "../src/pages/LoginPage";
 import CategorySearchPage from "../src/pages/CategorySearchPage";
 import UserPage from "../src/pages/UserPage";
+import HomePage from "./pages/HomePage";
+import EmailValidationPage from "./pages/EmailValidationPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 const App = () => {
   const { isLoggedIn, role } = useSelector((store) => ({
@@ -25,10 +28,12 @@ const App = () => {
         <TopBar />
         <MegaMenu />
         <Switch>
-          <Route exact path="/" />
+          <Route exact path="/" component={HomePage}/>
           {!isLoggedIn && <Route path="/login" component={LoginPage} />}
           {!isLoggedIn && <Route path="/signup" component={UserSignupPage} />}
           {!isLoggedIn && <Route path="/notFound" component={NotFoundPage} />}
+          <Route path="/email-validation" component={EmailValidationPage} />
+          <Route path="/product-detail" component={ProductDetailPage} />
           <Route
             path="/all-products/:categoryId/:subId"
             component={CategoryDetailPage}
@@ -47,7 +52,8 @@ const App = () => {
           {isLoggedIn && role === "user" && (
             <Route path="/myprofile" component={UserPage} />
           )}
-          <Redirect to="/error" />
+          
+           { <Redirect to="/error" />  }
         </Switch>
         <Footer />
       </Router>
