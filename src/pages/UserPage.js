@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { getUser } from "../api/apiCalls";
+import React, { useState } from "react";
 import ProfileCard from "../components/userPage/ProfileCard";
 import { useTranslation } from "react-i18next";
-import { useApiProgress } from "../shared/ApiProgress";
 import { useSelector } from "react-redux";
 import Spinner from "../components/toolbox/Spinner";
 import UserMenu from "../components/toolbox/ComponentList";
@@ -14,7 +12,13 @@ const UserPage = () => {
     email: store.email,
   }));
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    // Örnek bir kullanıcı verisi
+    name: "John Doe",
+    age: 25,
+    // ... diğer özellikler
+  });
+
   const [notFound, setNotFound] = useState(false);
 
   const [currentCategory, setCurrentCategory] = useState("My User Information");
@@ -31,28 +35,10 @@ const UserPage = () => {
       id: "3",
       categoryName: "My Address Information",
     },
+    
   ];
 
   const { t } = useTranslation();
-
-  const pendingApiCall = useApiProgress("get", "/api/1.0/users/" + email, true);
-
-  useEffect(() => {
-    setNotFound(false);
-  }, [user]);
-
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const response = await getUser(email);
-        setUser(response.data);
-      } catch (error) {
-        setNotFound(true);
-      }
-    };
-
-    loadUser();
-  }, [email]);
 
   const onChangeCategory = (category) => {
     setCurrentCategory(category.categoryName);
@@ -81,10 +67,6 @@ const UserPage = () => {
         </div>
       </div>
     );
-  }
-
-  if (pendingApiCall || user.email !== email) {
-    return <Spinner />;
   }
 
   return (
