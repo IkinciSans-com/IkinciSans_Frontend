@@ -6,6 +6,8 @@ import Spinner from "../components/toolbox/Spinner";
 import UserMenu from "../components/toolbox/ComponentList";
 import UserOrders from "../components/userPage/UserOrders";
 import UserAddress from "../components/userPage/UserAddress";
+import { getUserRatingAverage } from "../api/apiCalls";
+import ReactStars from "react-rating-stars-component";
 
 const UserPage = () => {
   const { email } = useSelector((store) => ({
@@ -13,14 +15,12 @@ const UserPage = () => {
   }));
 
   const [user, setUser] = useState({
-    // Örnek bir kullanıcı verisi
     name: "John Doe",
     age: 25,
-    // ... diğer özellikler
+    averageRating: 3.5, // Ortalama örnek oy değeri
   });
 
   const [notFound, setNotFound] = useState(false);
-
   const [currentCategory, setCurrentCategory] = useState("My User Information");
   const categories = [
     {
@@ -35,7 +35,10 @@ const UserPage = () => {
       id: "3",
       categoryName: "My Address Information",
     },
-    
+    {
+      id: "4",
+      categoryName: "Average Rating",
+    },
   ];
 
   const { t } = useTranslation();
@@ -44,6 +47,20 @@ const UserPage = () => {
     setCurrentCategory(category.categoryName);
   };
 
+  // useEffect(() => {
+  //   const fetchUserRatingAverage = async () => {
+  //     try {
+  //       const response = await getUserRatingAverage(userId); // Gerçek ortalama oy değerini almak için uygun bir API çağrısı yapmanız gerekebilir
+  //       const averageRating = response.data.averageRating;
+  //       setUser((prevUser) => ({ ...prevUser, averageRating }));
+  //     } catch (error) {
+  //       // Hata yönetimi
+  //     }
+  //   };
+  
+  //   fetchUserRatingAverage();
+  // }, []);
+  
   const returnActiveComponent = () => {
     if (currentCategory === "My User Information") {
       return <ProfileCard user={user} />;
@@ -51,6 +68,39 @@ const UserPage = () => {
       return <UserOrders />;
     } else if (currentCategory === "My Address Information") {
       return <UserAddress user={user} editing={true} />;
+    } else if (currentCategory === "Average Rating") {
+      return (
+        <div className="average-rating-container">
+          <div className="average-rating-value">
+            <ReactStars
+              count={5}
+              size={28}
+              activeColor="#ffd700"
+              half={true} // Enable half-star ratings
+              isHalf={true}
+              value={user.averageRating}
+              // onChange={fetchAverageRating()}
+            />
+          </div>
+          <div className="current-ratings-container">
+          <h4>{t("Votes")}</h4>
+            <ul className="rating-list">
+              <li className="rating-item">
+                <span className="rating-label">{t("Vote")} 1:</span>
+                <ReactStars count={5} size={20} activeColor="#ffd700" value={2.5} edit={false} half={true} isHalf={true} />
+              </li>
+              <li className="rating-item">
+                <span className="rating-label">{t("Vote")} 2:</span>
+                <ReactStars count={5} size={20} activeColor="#ffd700" value={3} edit={false} half={true} isHalf={true} />
+              </li>
+              <li className="rating-item">
+                <span className="rating-label">{t("Vote")} 3:</span>
+                <ReactStars count={5} size={20} activeColor="#ffd700" value={4.2} edit={false} half={true} isHalf={true} />
+              </li>
+            </ul>
+          </div>
+        </div>
+      );
     }
   };
 
@@ -76,7 +126,12 @@ const UserPage = () => {
           <UserMenu
             categories={categories}
             currentCategory={currentCategory}
-            onClickCategory={onChangeCategory}
+            onClickCategory={(category) => {
+//               // if (category.categoryName === "Average Rating") {
+//               //   fetchAverageRating(userId); // userId, kullanıcının kimliğini temsil eden bir değer olmalı
+//               // }
+              onChangeCategory(category);
+             }}
           />
         </div>
         <div className="col-9">{returnActiveComponent()}</div>

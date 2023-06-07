@@ -24,6 +24,11 @@ export const getUsers = (page = 0, size = 3) => {
   return axios.get(`/api/1.0/users?page=${page}&size=${size}`);
 };
 
+export const getUserRatingAverage = async (userId) => {
+  const response = await axios.get(`/api/1.0/users/${userId}/rating/average`);
+  return response.data;
+};
+
 export const setAuthorizationHeader = ({ token, isLoggedIn }) => {
   if (isLoggedIn) {
     const authorizationHeaderValue = `Bearer ${token}`;
