@@ -34,6 +34,9 @@ const App = () => {
           <Route path="/email-validation" component={EmailValidationPage} />
           <Route path="/product-detail" component={ProductDetailPage} />
           <Route path="/myprofile" component={UserPage} />
+          {/* {isLoggedIn && role === "user" && (
+            <Route path="/myprofile" component={UserPage} />
+          )} */}
           <Route
             path="/all-products/:categoryId/:subId"
             component={CategoryDetailPage}
@@ -45,8 +48,6 @@ const App = () => {
           {isLoggedIn && role === "admin" && (
             <Route exact path="/editProduct/:id" component={EditProductPage} />
           )}
-          
-          
            { <Redirect to="/error" />  }
         </Switch>
         <Footer />

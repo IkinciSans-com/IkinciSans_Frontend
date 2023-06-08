@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getUser } from "../api/apiCalls";
 import ProfileCard from "../components/userPage/ProfileCard";
 import { useTranslation } from "react-i18next";
+import { useApiProgress } from "../shared/ApiProgress";
 import { useSelector } from "react-redux";
 import Spinner from "../components/toolbox/Spinner";
 import UserMenu from "../components/toolbox/ComponentList";
@@ -42,6 +44,25 @@ const UserPage = () => {
   ];
 
   const { t } = useTranslation();
+
+  // const pendingApiCall = useApiProgress("get", "/api/1.0/users/" + email, true);
+
+  // useEffect(() => {
+  //   setNotFound(false);
+  // }, [user]);
+
+  // useEffect(() => {
+  //   const loadUser = async () => {
+  //     try {
+  //       const response = await getUser(email);
+  //       setUser(response.data);
+  //     } catch (error) {
+  //       setNotFound(true);
+  //     }
+  //   };
+
+  //   loadUser();
+  // }, [email]);
 
   const onChangeCategory = (category) => {
     setCurrentCategory(category.categoryName);
@@ -118,6 +139,10 @@ const UserPage = () => {
       </div>
     );
   }
+
+  // if (pendingApiCall || user.email !== email) {
+  //   return <Spinner />;
+  // }
 
   return (
     <div className="container mt-5 w-100">
