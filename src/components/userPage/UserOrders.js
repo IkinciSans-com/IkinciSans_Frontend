@@ -1,116 +1,124 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { getOrders } from "../../api/apiCalls";
-import Pagination from "../toolbox/Pagination";
-import cartEmpty from "../../assets/cartEmpty.png";
+import { useApiProgress } from "../../shared/ApiProgress";
+import Spinner from "../toolbox/Spinner";
+//import { getProducts, createProduct, updateProduct, removeProduct } from "../../../../IkinciSans_Backend/app/controllers/productController";
 
 const UserOrders = () => {
-  const [page, setPage] = useState({
-    content: [],
-    size: 3,
-    number: 0,
-  });
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const pendingApiCall = useApiProgress("get", "/api/products");
 
   useEffect(() => {
-    loadOrders();
+    setLoading(true);
+    loadProducts();
   }, []);
 
-  const loadOrders = async (page) => {
+  const loadProducts = async () => {
+    // Backend'den ürünleri almak için gerekli API çağrısını burada yapabilirsiniz.
+    /*
     try {
-      const response = await getOrders(page);
-      setPage(response.data);
-    } catch (error) {}
-  };
-
-  const onClickNext = (event) => {
-    if (!event.target.className.includes("disabled")) {
-      const nextPage = page.number + 1;
-      loadOrders(nextPage);
+      const response = await getProducts();
+      setProducts(response.data);
+    } catch (error) {
+      console.error("Error while loading products:", error);
+    } finally {
+      setLoading(false);
     }
+    */
+    // Örnek olarak, burada sabit bir ürün listesi oluşturuyorum.
+    const exampleProducts = [
+      { id: 1, name: "Ürün 1" },
+      { id: 2, name: "Ürün 2" },
+      { id: 3, name: "Ürün 3" },
+    ];
+    setProducts(exampleProducts);
+    setLoading(false);
   };
 
-  const onClickPage = (event) => {
-    const targetPage = event.target.innerHTML - 1;
-    loadOrders(targetPage);
+  const handleDelete = (productId) => {
+    // Ürünü silmek için gerekli API çağrısını burada yapabilirsiniz.
+    /*
+    removeProduct(productId)
+    .then(() => {
+      // Silme işlemi başarılı olduğunda ürünleri yeniden yükle
+      loadProducts();
+    })
+    .catch((error) => {
+      console.error("Error while deleting product:", error);
+    });
+    */
+    // Örnek olarak, ürünü silmek yerine sadece konsola log yazıyorum.
+    console.log(`Ürün (${productId}) silindi.`);
   };
 
-  const onClickPrevious = (event) => {
-    if (!event.target.className.includes("disabled")) {
-      const previousPage = page.number - 1;
-      loadOrders(previousPage);
-    }
+  const handleUpdate = (productId) => {
+    // Ürünü güncellemek için gerekli API çağrısını burada yapabilirsiniz.
+    /*
+    updateProduct(productId)
+    .then(() => {
+      // Güncelleme işlemi başarılı olduğunda ürünleri yeniden yükle
+      loadProducts();
+    })
+    .catch((error) => {
+      console.error("Error while updating product:", error);
+    });
+    */
+    // Örnek olarak, ürünü güncellemek yerine sadece konsola log yazıyorum.
+    console.log(`Ürün (${productId}) güncellendi.`);
   };
 
-  const { content: orders, empty } = page;
+  const { t } = useTranslation();
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
-    <div className="card text-center">
-      <div className="card-body">
-        <div className="container">
-          {empty && (
-            <div className="container border mt-2 text-center">
-              <img src={cartEmpty} className="mb-5 mt-5" />
-              <h2 className="container text-danger">
-                {t("You Have Never Traded Before!")}
-              </h2>
-            </div>
-          )}
-          {orders.map((item) => {
-            return (
-              <div className="row border border-solid mt-2" key={item.id}>
-                <div className="col">
-                  <h6 className="mt-4">{t("Swap Date")}</h6>
-                  {language === "tr" && (
-                    <span className="mt-2">{item.timestampTr}</span>
-                  )}
-                  {(language === "en" || language === undefined) && (
-                    <span className="mt-2">{item.timestampEn}</span>
-                  )}
-                </div>
-                <div className="col mt-4 text-center">
-                  <div className="row">
-                    <div className="col">
-                      <h6>
-                        {t("Total Product")}
-                        <br />
-                        {item.totalProduct}
-                      </h6>
-                      <h6 className="mt-3 text-primary">
-                        {t("What can be exchanged for?")}
-                        <br />{item.totalPrice}
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div className="col text-center">
-                  <h6 className="mt-4">{t("Swap Status")}</h6>
-                  <span className="mt-2">{t(item.orderStatus)}</span>
-                </div>
-                <div className="col text-center">
-                  <Link to={"/order/" + item.id} target="_blank">
-                    <button className="btn btn-primary mt-5">
-                      {t("Order Detail")}
+    <div className="container">
+      <h3>{t("Takas Etmek İstediğim Ürünler")}</h3>
+      {products.length === 0 ? (
+        <div className="alert alert-danger text-center">{t("No products found")}</div>
+      ) : (
+        <div>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th>{t("Ürün Adı")}</th>
+                <th>{t("Sil")}</th>
+                <th>{t("Güncelle")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>{product.name}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleDelete(product.id)}
+                    >
+                      {t("Sil")}
                     </button>
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-          <div className="row mt-5">
-            <Pagination
-              page={page}
-              onClickNext={onClickNext}
-              onClickPrevious={onClickPrevious}
-              onClickPage={onClickPage}
-            />
+                  </td>
+                  <td>
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => handleUpdate(product.id)}
+                    >
+                      {t("Güncelle")}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="text-center">
+            <button className="btn btn-secondary">{t("Ürün Ekle")}</button>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
