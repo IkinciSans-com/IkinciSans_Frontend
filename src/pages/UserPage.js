@@ -10,6 +10,7 @@ import UserOrders from "../components/userPage/UserOrders";
 import UserAddress from "../components/userPage/UserAddress";
 import { getUserRatingAverage } from "../api/apiCalls";
 import ReactStars from "react-rating-stars-component";
+import "../components/userPage/UserPage.css";
 
 const UserPage = () => {
   const { email } = useSelector((store) => ({
@@ -20,6 +21,7 @@ const UserPage = () => {
     name: "John Doe",
     age: 25,
     averageRating: 3.5, // Ortalama örnek oy değeri
+    comment: "", // New comment field
   });
 
   const [notFound, setNotFound] = useState(false);
@@ -109,6 +111,9 @@ const UserPage = () => {
               <li className="rating-item">
                 <span className="rating-label">{t("Vote")} 1:</span>
                 <ReactStars count={5} size={20} activeColor="#ffd700" value={2.5} edit={false} half={true} isHalf={true} />
+                <div className="comment-section">
+                  <p className="comment">{t("It was a very worn product.")}</p>  {/* backendten commenti çek: user.comment */}
+                </div>
               </li>
               <li className="rating-item">
                 <span className="rating-label">{t("Vote")} 2:</span>
@@ -117,6 +122,9 @@ const UserPage = () => {
               <li className="rating-item">
                 <span className="rating-label">{t("Vote")} 3:</span>
                 <ReactStars count={5} size={20} activeColor="#ffd700" value={4.2} edit={false} half={true} isHalf={true} />
+                <div className="comment-section">
+                  <p className="comment">{t("The swap was successful.")}</p>
+                </div>
               </li>
             </ul>
           </div>
