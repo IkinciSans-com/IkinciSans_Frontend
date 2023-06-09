@@ -7,6 +7,7 @@ import MegaMenu from "../src/components/common/MegaMenu";
 import CategoryDetailPage from "../src/pages/CategoryDetailPage";
 import EditProductPage from "../src/pages/EditProductPage";
 import UserSignupPage from "../src/pages/UserSignupPage";
+import Chat from "./pages/MessagePage";
 import NotFoundPage from "../src/pages/NotFoundPage";
 import LoginPage from "../src/pages/LoginPage";
 import CategorySearchPage from "../src/pages/CategorySearchPage";
@@ -44,6 +45,10 @@ const App = () => {
           {isLoggedIn && role === "admin" && (
             <Route exact path="/editProduct/:id" component={EditProductPage} />
           )}
+          <Route 
+            path="/messagepage" 
+            component={Chat} 
+           />
           {isLoggedIn && role === "user" && (
             <Route path="/myprofile" component={UserPage} />
           )}
