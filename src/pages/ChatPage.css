@@ -1,0 +1,163 @@
+.chat-page {
+    display: flex;
+    height: 100vh;
+    background-color: #fdfdfd;
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #f73f52;
+    padding: 20px;
+  }
+  
+  .sidebar-title {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  .user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .user-item {
+    padding: 5px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+  }
+  
+  .user-item:hover {
+    background-color: #f73f52;
+    color: #fff;
+  }
+  
+  .chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+    border: 1px solid #f73f52;
+    border-radius: 10px;
+  }
+  
+  .chat-header {
+    background-color: #f73f52;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .chat-header h2 {
+    color: #fff;
+    font-size: 24px;
+  }
+  
+  .chat-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+  }
+  
+  .message-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .message-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .message-item .message-text {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .message-item.sent .message-text {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+  }
+  
+  .message-sender {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .message-form {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  
+  .message-input {
+    flex: 1;
+    padding: 5px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .send-button {
+    padding: 5px 10px;
+    background-color: #f73f52;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .send-button:hover {
+    background-color: #ff8db2;
+  }
+
+  
+  .sidebar {
+    width: 300px;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #f73f52; 
+    border-radius: 10px; 
+  }
+  
+  
+  .sidebar-title {
+    margin-bottom: 20px;
+    background-color: #f73f52; 
+    color: #ffffff; 
+    font-size: 20px;
+    padding: 10px; 
+  }
+  
+  
+  .user-item {
+    padding: 5px;
+    background-color: #ffffff; 
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #f73f52; 
+    font-size: 16px;
+  }
+  
+  .user-item:hover {
+    background-color: #f73f52;
+    color: #ffffff; 
+  }
+  
